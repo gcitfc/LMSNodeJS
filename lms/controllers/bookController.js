@@ -23,7 +23,7 @@ routes.post('/book', function(req, res){
 
 });
 
-routes.post('/updateBook', function(req, res){
+routes.put('/book', function(req, res){
   var book = req.body;
   bookDao.updateBook(book, function(err, result){
     if(err){

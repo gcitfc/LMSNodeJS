@@ -23,7 +23,7 @@ routes.post('/author', function(req, res){
 
 });
 
-routes.post('/updateAuthor', function(req, res){
+routes.put('/author', function(req, res){
   var author = req.body;
   authorDao.updateAuthor(author, function(err, result){
     if(err){
