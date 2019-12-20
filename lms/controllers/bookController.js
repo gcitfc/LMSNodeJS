@@ -1,12 +1,32 @@
 var routes = require('express').Router();
 var db = require('../dao/db');
 var bookDao = require('../dao/bookDao');
+var authorDao = require('../dao/authorDao');
 
 routes.get('/book',function(req,res){
     bookDao.getAllBooks(function(error, result){
+      let ret = [];
       if(error) throw error;
-      res.setHeader('Content-Type', 'application/json');
-      res.send(result);
+      authorDao.getAllAuthors()
+      .then(function(authors){
+        for(let i = 0; i < result.length; i++) {
+          for(let j = 0; j < result.length; j++) {
+            if(result[i].author_id == authors[j].author_id) {
+              var tmp = {
+                book_id : result[i].book_id,
+                title : result[i].title,
+                author_name : authors[j].author_name
+              }
+              ret.push(tmp);
+            }
+          }
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.send(ret);
+      })
+      .catch(function(err){
+        throw err;
+      });
     });
 });
 
