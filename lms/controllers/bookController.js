@@ -10,7 +10,7 @@ routes.get('/book',function(req,res){
       authorDao.getAllAuthors()
       .then(function(authors){
         for(let i = 0; i < result.length; i++) {
-          for(let j = 0; j < result.length; j++) {
+          for(let j = 0; j < authors.length; j++) {
             if(result[i].author_id == authors[j].author_id) {
               var tmp = {
                 book_id : result[i].book_id,
